@@ -152,37 +152,13 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="CCharacter.cpp" />
-    <ClCompile Include="CPlayer.cpp" />
-    <ClCompile Include="CPlayerArm.cpp" />
-    <ClCompile Include="CPlayerFace.cpp" />
-    <ClCompile Include="CPlayerForearm.cpp" />
-    <ClCompile Include="CPlayerLeg.cpp" />
-    <ClCompile Include="CPlayerThigh.cpp" />
     <ClCompile Include="CSound.cpp" />
-    <ClCompile Include="CThief.cpp" />
-    <ClCompile Include="CThiefArm.cpp" />
-    <ClCompile Include="CThiefFace.cpp" />
-    <ClCompile Include="CThiefForeArm.cpp" />
-    <ClCompile Include="CThiefLeg.cpp" />
-    <ClCompile Include="CThiefThigh.cpp" />
     <ClCompile Include="CWall.cpp" />
     <ClCompile Include="game.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CCharacter.h" />
-    <ClInclude Include="CPlayer.h" />
-    <ClInclude Include="CPlayerArm.h" />
-    <ClInclude Include="CPlayerFace.h" />
-    <ClInclude Include="CPlayerForearm.h" />
-    <ClInclude Include="CPlayerLeg.h" />
-    <ClInclude Include="CPlayerThigh.h" />
     <ClInclude Include="CSound.h" />
-    <ClInclude Include="CThief.h" />
-    <ClInclude Include="CThiefArm.h" />
-    <ClInclude Include="CThiefFace.h" />
-    <ClInclude Include="CThiefForeArm.h" />
-    <ClInclude Include="CThiefLeg.h" />
-    <ClInclude Include="CThiefThigh.h" />
     <ClInclude Include="CWall.h" />
     <ClInclude Include="game.h" />
     <ClInclude Include="global.h" />

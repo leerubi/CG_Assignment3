@@ -398,7 +398,7 @@
 // Static assert
 
 #if GLM_HAS_STATIC_ASSERT
-#	define GLM_STATIC_ASSERT(x, message) static_assert(x, message)
+#	define GLM_STATIC_ASSERT(x, message) static_assert(x, MessageGameResult)
 #elif GLM_COMPILER & GLM_COMPILER_VC
 #	define GLM_STATIC_ASSERT(x, message) typedef char __CASSERT__##__LINE__[(x) ? 1 : -1]
 #else

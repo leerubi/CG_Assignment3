@@ -6,10 +6,11 @@ class CCharacter
 private:
 	GLUquadricObj* obj;
 	bool flag = true;
-	int pose;
+	int pose = DEFAULT;
 	float posX;
 	float posY;
 	float posZ;
+	int passCnt = 0;
 
 	// Arm
 	float preAngleLeftArm;
@@ -34,14 +35,26 @@ public:
 	CCharacter();
 	CCharacter(float posX, float posY, float posZ);
 	~CCharacter();
-	void drawArm(int direction);
-	void drawForearm(int direction);
-	void drawBody();
-	void drawThigh(int direction);
-	void drawLeg(int direction);
-	void drawCharacter();
-	void changeWireOrSolid(bool flag);
-	void setPose(int pose);
+
+	// Draw methods
+	void DrawArm(int direction);
+	void DrawForearm(int direction);
+	void DrawBody();
+	void DrawThigh(int direction);
+	void DrawLeg(int direction);
+	void DrawCharacter();
+	void ChangeWireOrSolid(bool flag);
+
+	// Get & Set methods
+	int GetPose();
+	float GetPosX();
+	float GetPosY();
+	int GetPassCnt();
+
+	void SetPose(int pose);
+	void SetPosX(float posX);
+	void SetPosY(float posY);
+	void SetPassCnt(int passCnt);
 
 };
 

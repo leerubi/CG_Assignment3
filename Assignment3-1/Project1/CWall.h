@@ -18,19 +18,18 @@ public:
 	CWall(float posX, float posY, float posZ);
 	~CWall();
 	
-	void drawWall();
+	void DrawWall();
 
-
-	void setPosX(float posX);
-	void setPosY(float posY);
-	void setPosZ(float posZ);
-	//void setPose(int pose);
+	void SetPosX(float posX);
+	void SetPosY(float posY);
+	void SetPosZ(float posZ);
+	void SetPose(int pose);
 	//void setFront(int front);
 
-	float getPosX();
-	float getPosY();
-	float getPosZ();
-	//int getPose();
+	float GetPosX();
+	float GetPosY();
+	float GetPosZ();
+	int GetPose();
 	//float getWidth();
 	//float getHeight();
 	//float getDepth();
