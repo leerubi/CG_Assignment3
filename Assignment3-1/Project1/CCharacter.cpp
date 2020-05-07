@@ -1,7 +1,10 @@
 #include "CCharacter.h"
-
+#include <iostream>
+using namespace std;
 CCharacter::CCharacter()
 {
+	//this->viewPoint = VP_GLOBAL;
+
 }
 
 CCharacter::CCharacter(float posX, float posY, float posZ)
@@ -9,6 +12,7 @@ CCharacter::CCharacter(float posX, float posY, float posZ)
 	this->posX = posX;
 	this->posY = posY;
 	this->posZ = posZ;
+
 }
 
 CCharacter::~CCharacter()
@@ -129,13 +133,13 @@ void CCharacter::DrawThigh(int direction)
 	{
 		curThighTimer = GetTickCount64();
 		//angleThigh = 45 - ((curThighTimer - startThighTimer) / (VELORATE - ADJUST));
-		angleThigh = 45 - ((curThighTimer - startThighTimer) / (VELORATE / (passCnt+1)));
+		angleThigh = 45 - ((curThighTimer - startThighTimer) / (VELORATE / (passCnt + 1)));
 	}
 	else
 	{
 		startThighTimer = GetTickCount64();
 		//angleThigh = - 45 - ((curThighTimer - startThighTimer) / (VELORATE - ADJUST));
-		angleThigh = - 45 - ((curThighTimer - startThighTimer) / (VELORATE / (passCnt+1)));
+		angleThigh = -45 - ((curThighTimer - startThighTimer) / (VELORATE / (passCnt + 1)));
 
 	}
 
@@ -171,7 +175,7 @@ void CCharacter::DrawThigh(int direction)
 
 void CCharacter::DrawLeg(int direction)
 {
-	if (angleThigh  > 0)
+	if (angleThigh > 0)
 	{
 		//angleLeftLeg = 0;
 		angleLeftLeg = -(angleThigh / 2);
@@ -217,6 +221,13 @@ void CCharacter::DrawLeg(int direction)
 void CCharacter::DrawCharacter()
 {
 	glLoadIdentity();
+	//cout << viewPoint << endl;
+
+	//if(viewPoint != VP_PLAYER)
+	//	gluLookAt(1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0); // left side
+	//else 
+	//	gluLookAt(1.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 1.0); // left side
+
 	////DJ
 	//gluLookAt(1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0); // left side
 	////DJ
@@ -241,7 +252,7 @@ void CCharacter::ChangeWireOrSolid(bool flag)
 }
 
 void CCharacter::SetPose(int pose) {
-	
+
 	this->pose = pose;
 	preAngleLeftArm = targetAngleLeftArm;
 	preAngleRightArm = targetAngleRightArm;
@@ -280,6 +291,17 @@ void CCharacter::SetPosY(float posY)
 void CCharacter::SetPassCnt(int passCnt)
 {
 	this->passCnt = passCnt;
+}
+
+void CCharacter::setPerspect(bool first)
+{
+	//cout << "sss" << endl;
+	//glLoadIdentity();
+	if (first)
+		viewPoint = VP_PLAYER;
+	else
+		viewPoint = VP_GLOBAL;
+
 }
 
 int CCharacter::GetPose()

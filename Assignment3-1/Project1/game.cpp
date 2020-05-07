@@ -11,7 +11,7 @@ void glInit()
 	glClearColor(1.0, 1.0, 1.0, 1.0);
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
-	glOrtho(-1.0, 1.0, -1.0, 1.0, -1.0, 1.0);
+	glOrtho(-1.0, 1.0, -1.0, 1.0, 1.0, -1.0);
 }
 
 void Initialize()
@@ -20,7 +20,7 @@ void Initialize()
 	targetVelocity = initVelocity;
 	startWallTimer = GetTickCount64();
 	srand((unsigned int)time(NULL));
-	walls.push_back(CWall(1, 0, 0));
+	walls.push_back(CWall(3, 0, 0));
 	//thief.SetPose(LEFT);
 	thief.SetPose(rand() % 5);
 
@@ -28,10 +28,25 @@ void Initialize()
 
 void DrawGround()
 {
-	glColor3f(0.0, 0.0, 0.0);
-	glTranslatef(0.0, -1.8, 0.0);
-	glutSolidCube(2);
+	//glColor3f(0.5, 0.5, 0.5);
+	glTranslatef(-1.0, -1.9, 0.0);
 	//glutWireCube(2);
+	glBegin(GL_QUADS);
+	glColor3f(0.5, 0.5, 0.5);
+	glVertex3f(0, 0, -1);
+	glVertex3f(0, 0, 1);
+	glVertex3f(20, 0, 1);
+	glVertex3f(20, 0, -1);
+	glEnd();
+
+	glTranslatef(-1.0, 0, 0.0);
+	glBegin(GL_QUADS);
+	glColor3f(0.5, 0.5, 0.5);
+	glVertex3f(0, 0, 0);
+	glVertex3f(0, 1.1, 0);
+	glVertex3f(10, 1.1, 0);
+	glVertex3f(10, 0, 0);
+	glEnd();
 }
 
 void PassWall()
@@ -81,11 +96,20 @@ void MessageGameResult(bool success)
 
 void MyDisplay()
 {
+	//cout << "dis" << endl;
 	glLoadIdentity();
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	glMatrixMode(GL_MODELVIEW);
-
+	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
+	if (viewPoint == VP_PLAYER) {
+		gluPerspective(120, -0.8, 0.1, 20.0);
+		gluLookAt(player.GetPosX() + 0.1, player.GetPosY(), 0, player.GetPosX() + 0.15, player.GetPosY(), 0.0, 0.0, 0.5, 0.0); // left side
+	}
+	else {
+		glOrtho(-1.0, 1.0, -1.0, 1.0, 1.0, -1.0);
+	}
+
+	glMatrixMode(GL_MODELVIEW);
 	DrawGround();
 }
 
@@ -99,16 +123,17 @@ void SystemCheck() {
 
 	// Wall - create a wall every "interval" time
 	curWallTimer = GetTickCount64();
+
 	if (curWallTimer - startWallTimer >= interval)
 	{
-		walls.push_back(CWall(1, 0, 0));
+		walls.push_back(CWall(3, 0, 0));
 		startWallTimer = curWallTimer;
 		total++;
 	}
 
 	// If the wall and the thief collide ...
 	if (walls[now].GetPosX() < (thief.GetPosX() + 0.2)) // 0.2==thief torso radius
-	{ 
+	{
 		sound.playsound(THIEFPASS);
 
 		// Wall - change to thief color
@@ -128,7 +153,7 @@ void SystemCheck() {
 
 	// If the wall and the player collide ...
 	if (walls[previous].GetPosX() <= (player.GetPosX() + 0.2)) // 0.2==player torso radius
-	{ 
+	{
 		// System - check if pass or fail
 		if (cheatMode == ALL_PASS)
 		{
@@ -171,12 +196,12 @@ void Animation(int value) {
 	//gluLookAt(0.0, 0.0, 0.0, 0.0, 0.0, -1.0, 0.0, 1.0, 0.0); // front
 	//gluLookAt(1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0); // left side
 	//gluLookAt(0.5, 0.5, 0.0, 0.0, 0.0, -1.0, 0.0, 1.0, 0.0); // diagonal
-	
+
 	curVelocity = targetVelocity;
-	
+
 	// Player - running animation
 	player.DrawCharacter();
-	
+
 	// Player - jump animation
 	jumpPlayerTimer++;
 	if (jumpPlayerTimer < (initVelocity / curVelocity * 20) && jumpingPlayer)
@@ -242,6 +267,7 @@ void Animation(int value) {
 	{
 		// set wall pose
 		walls[i].SetPosX(walls[i].GetPosX() - curVelocity);
+		//cout << walls[i].GetPosX() << endl;
 		walls[i].DrawWall();
 		if (walls[i].GetPosX() + 0.1 < -1.0)
 		{
@@ -280,6 +306,16 @@ void MyKey(unsigned char key, int x, int y) {
 
 	switch (key)
 	{
+	case 'b':
+		if (viewPoint == VP_GLOBAL) {
+			//3인칭 시점이었다면 1인칭으로 변환
+			viewPoint = VP_PLAYER;
+		}
+		else {
+			//1인칭이었다면 3인칭으로 변환
+			viewPoint = VP_GLOBAL;
+		}
+		return;
 	case 32: // Space bar
 		if (!jumpingPlayer)
 		{
@@ -290,7 +326,7 @@ void MyKey(unsigned char key, int x, int y) {
 		}
 		return;
 	}
-	
+
 	switch (key)
 	{
 	case 'c':
@@ -305,6 +341,7 @@ void MyKey(unsigned char key, int x, int y) {
 		else
 			cheatMode = ALL_FAIL;
 		break;
+
 	}
 
 	if (cheatMode == ALL_PASS)

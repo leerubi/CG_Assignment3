@@ -34,3 +34,7 @@
 //leg, thigh velocity rate
 //velocity is faster if it is smaller
 #define VELORATE 20
+
+//view point
+#define VP_PLAYER 21
+#define VP_GLOBAL 22

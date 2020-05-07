@@ -54,6 +54,9 @@ bool pass = false;
 float prePlayerPosX;
 
 
+int viewPoint = VP_GLOBAL;
+
+
 //// Functions
 //void init();					// Initialize game states
 //void setObjectColor(int color);	// Set theif or wall pose(color)

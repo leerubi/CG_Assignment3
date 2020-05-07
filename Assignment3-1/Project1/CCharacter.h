@@ -17,20 +17,20 @@ private:
 	float preAngleRightArm;
 	float curAngleLeftArm = 0;
 	float curAngleRightArm = 0;
-	float targetAngleLeftArm; 
+	float targetAngleLeftArm;
 	float targetAngleRightArm;
 
 	// Thigh
 	long startThighTimer = GetTickCount64();
 	long curThighTimer;
-	bool forward = true; 
+	bool forward = true;
 	float angleThigh = 0;
 
 	// Leg
 	float angleLeftLeg = 0;
 	float angleRightLeg = 0;
 
-
+	int viewPoint = VP_GLOBAL;
 public:
 	CCharacter();
 	CCharacter(float posX, float posY, float posZ);
@@ -55,6 +55,8 @@ public:
 	void SetPosX(float posX);
 	void SetPosY(float posY);
 	void SetPassCnt(int passCnt);
+
+	void setPerspect(bool first);
 
 };
 
