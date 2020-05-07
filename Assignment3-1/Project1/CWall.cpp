@@ -21,11 +21,11 @@ void CWall::DrawWall()
 {
 	glLoadIdentity();
 	glColor3f(0.0, 0.0, 0.0);
-	
+
 	////DJ
 	//gluLookAt(1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0); // left side
 	////DJ
-	glTranslatef(posX, posY - 0.2, posZ);
+	glTranslatef(posX, posY - 0.15, posZ);
 
 	// 1st column
 	glPushMatrix();
@@ -60,8 +60,8 @@ void CWall::DrawWall()
 	for (int i = 0; i < 6; i++)
 	{
 		glTranslatef(0.0, -0.1, 0.0);
-		
-		if (pose==UP && i==1)
+
+		if (pose == UP && i == 1)
 			continue;
 		if (pose == DOWN && i == 4)
 			continue;
