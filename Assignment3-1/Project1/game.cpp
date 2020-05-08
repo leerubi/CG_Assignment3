@@ -29,24 +29,29 @@ void Initialize()
 void DrawGround()
 {
 	//glColor3f(0.5, 0.5, 0.5);
+	//아래 판
 	glTranslatef(-1.0, -1.9, 0.0);
 	//glutWireCube(2);
-	glBegin(GL_QUADS);
+	glBegin(GL_POLYGON);
 	glColor3f(0.5, 0.5, 0.5);
-	glVertex3f(0, 0, -1);
-	glVertex3f(0, 0, 1);
-	glVertex3f(20, 0, 1);
-	glVertex3f(20, 0, -1);
+	glVertex3f(-20, 0.15, -4);
+	glVertex3f(-20, 0.15, 4);
+	glVertex3f(20, 0.15, 4);
+	glVertex3f(20, 0.15, -4);
 	glEnd();
+	
 
+	//위에 판(z가 폭)
 	glTranslatef(-1.0, 0, 0.0);
 	glBegin(GL_QUADS);
 	glColor3f(0.5, 0.5, 0.5);
-	glVertex3f(0, 0, 0);
-	glVertex3f(0, 1.1, 0);
-	glVertex3f(10, 1.1, 0);
-	glVertex3f(10, 0, 0);
+	glVertex3f(-20, 1.1, -3);
+	glVertex3f(-20, 1.1, 3);
+	glVertex3f(20, 1.1, 3);
+	glVertex3f(20, 1.1, -3);
 	glEnd();
+	
+
 }
 
 void PassWall()
@@ -106,7 +111,8 @@ void MyDisplay()
 		gluLookAt(player.GetPosX() + 0.1, player.GetPosY(), 0, player.GetPosX() + 0.15, player.GetPosY(), 0.0, 0.0, 0.5, 0.0); // left side
 	}
 	else {
-		glOrtho(-1.0, 1.0, -1.0, 1.0, 1.0, -1.0);
+		glOrtho(-1.95, 1.95, -1.95, 1.95, 1.95, -1.95);
+		gluLookAt(1, 0.1, 1, -1, 0.8, 0, 0, 1, 0); // left side
 	}
 
 	glMatrixMode(GL_MODELVIEW);
@@ -267,11 +273,12 @@ void Animation(int value) {
 	{
 		// set wall pose
 		walls[i].SetPosX(walls[i].GetPosX() - curVelocity);
-		//cout << walls[i].GetPosX() << endl;
 		walls[i].DrawWall();
-		if (walls[i].GetPosX() + 0.1 < -1.0)
+		if (walls[i].GetPosX() + 0.1 < -0.6)
 		{
-			walls[i].SetPosX(-1.0 - 0.1); // out of window
+			cout << walls[i].GetPosX() << endl;
+			//시야각에서 벗어날 때 사라지는 효과가 거슬려서 그냥 플레이어 지나가면 없어지게 함.
+			walls[i].SetPosX(-3.0 - 0.1); // out of window
 			front = i;
 		}
 	}

@@ -12,6 +12,8 @@
 #include <ctime>
 #include <mmsystem.h>
 #include "stb_image.h"
+#include <iostream>
+using namespace std;
 CONST TCHAR* lpszClass = _T("Message Box!\n");
 
 // Game objects
